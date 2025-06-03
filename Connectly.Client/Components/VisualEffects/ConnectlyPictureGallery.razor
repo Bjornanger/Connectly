@@ -1,0 +1,36 @@
+﻿@using Connectly.Application.DTOs.UserDtos
+@using Connectly.Client.Components.VisualEffects.Modals
+
+
+@if (!_showBigPictureModal)
+{
+    <div class="row">
+        @foreach (var picture in Images)
+        {
+            <div class="col-6">
+                <img class="img-fluid" style="cursor:pointer" @onclick="@(() => OpenBigPictureModal(picture))" src="data:image/png;base64,@Convert.ToBase64String(picture.Data)" />
+            </div>
+        }
+    </div>
+}
+@if (_showBigPictureModal)
+{
+    <ConnectlyModalNew FullscreenModal="true" ShowModalFooter="false" OnCancel="() => _showBigPictureModal = false">
+        <ModalBody>
+            <img @onclick="() => _showBigPictureModal = false" style="cursor:pointer" class="img-fluid" src="data:image/png;base64,@Convert.ToBase64String(Images[_imageIndex].Data)" />
+        </ModalBody>
+    </ConnectlyModalNew>
+}
+
+@code {
+    [Parameter] public List<FileDataDto> Images { get; set; } = new();
+
+    private bool _showBigPictureModal;
+    private int _imageIndex;
+
+    private void OpenBigPictureModal(FileDataDto picture)
+    {
+        _imageIndex = Images.IndexOf(picture);
+        _showBigPictureModal = true;
+    }
+}

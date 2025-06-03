@@ -1,0 +1,90 @@
+﻿@rendermode InteractiveServer
+@inject NavigationManager NavigationManager
+
+<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">Connectly</a>
+       @*  <img src="images/Connectly.jpg" /> *@
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">
+                <span class="oi oi-home pt-1" aria-hidden="true"></span> Hem
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="news">
+                <span class="oi oi-globe pt-1"></span> Nyheter
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="userRegistration">
+                <span class="oi oi-clipboard pt-1"></span> Anmälan
+            </NavLink>
+        </div>
+       @*  <AuthorizeView Roles="Admin, User">
+            <Authorized> *@
+
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="myRegistration">
+                        <span class="oi oi-book pt-1"></span> Min anmälan
+                    </NavLink>
+                </div>
+
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="viewEvents">
+                        <span class="oi oi-folder pt-1"></span> Evenemang
+                    </NavLink>
+                </div>
+
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="Account/Manage">
+                        <span class="oi oi-person pt-1"></span> Profil
+                    </NavLink>
+                </div>
+
+      @*       </Authorized>
+        </AuthorizeView> *@
+       @*  <AuthorizeView Roles="Admin">
+            <Authorized> *@
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="events">
+                        <span class="oi oi-wrench pt-1"></span> Event
+                    </NavLink>
+                </div>
+
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="registeredMeetingParticipants">
+                        <span class="oi oi-wrench pt-1"></span> Participant
+                    </NavLink>
+                </div>
+
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="resources">
+                        <span class="oi oi-wrench pt-1"></span> Document folder
+                    </NavLink>
+                </div>
+       @*      </Authorized>
+        </AuthorizeView> *@
+    </nav>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    private string? currentUrl;
+
+}
